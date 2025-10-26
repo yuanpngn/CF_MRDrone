@@ -309,61 +309,6 @@ def main():
             # Update current height after the full sequence
             current_height = H_LOW # The last pass (i=9, "down") ends at z_low
 
-            # # 1:26–1:50 Diagonal movements while circling around the performer
-            # # 8 passes × 3 seconds each = 24 seconds total
-            # # Each pass: move 1.5m horizontal distance + change 1.2m in height
-            # # Alternating upward and downward diagonals
-            
-            # # Calculate positions around the performer (orbit at radius)
-            # num_diag_passes = 10
-            # orbit_radius = CIRCLE_R
-            # angle_step = (2.0 * math.pi) / num_diag_passes
-            
-            # for i in range(num_diag_passes):
-            #     mode = "up" if i % 2 == 0 else "down"
-                
-            #     # Calculate horizontal positions (moving around performer)
-            #     angle_start = i * angle_step
-            #     angle_end = (i + 1) * angle_step
-                
-            #     # Starting position for this diagonal
-            #     x_start = orbit_radius * math.cos(angle_start)
-            #     y_start = orbit_radius * math.sin(angle_start)
-                
-            #     # Ending position (1.5m horizontal distance away)
-            #     x_end = orbit_radius * math.cos(angle_end)
-            #     y_end = orbit_radius * math.sin(angle_end)
-                
-            #     # Height changes: alternating up (+1.2m) and down (-1.2m)
-            #     if mode == "up":
-            #         z_start = H_LOW
-            #         z_end = H_LOW + DIAG_VERTICAL  # +1.2m height
-            #         current_height = z_end
-            #     else:
-            #         z_start = H_LOW + DIAG_VERTICAL
-            #         z_end = H_LOW  # -1.2m height
-            #         current_height = z_end
-
-            #     # Execute diagonal movement (2.4 seconds per pass)
-            #     hl_go_to_compat(hl, x_end, y_end, z_end, duration_s=2.4, relative=False)
-            #     safe_sleep(2.4 + SLACK)
-
-            # # Return to center front at H_STD to prep spiral
-            # goto(hl, POINTS["CENTER"], H_STD, 2.5)
-            # current_height = H_STD
-
-            # 1:50–2:20 Horizontal figure-8 pattern (overlapping circles in front of dancer)
-            # Creates a twisting horizontal spiral effect with overlapping circles
-            # horizontal_figure8(hl,
-            #                   cx=0.0, cy=CENTER_FRONT_Y,  # Center at center front position
-            #                   z=H_STD,
-            #                   width=1.2,  # Width of figure-8
-            #                   height_var=0.3,  # Slight height variation
-            #                   total_time=30.0,
-            #                   segments=60,
-            #                   face_center=FACE_CENTER,
-            #                   world_yaw_offset_deg=YAW_OFF_DEG)
-            
             start_angle_deg = 90.0
             circle(hl,
                    cx=0.0, cy=0.0, z=H_STD,
@@ -406,36 +351,6 @@ def main():
             # 2:39–2:43 Approach
             goto(hl, POINTS["CENTER"], H_STD, 4.0)
 
-            # 2:43–2:51 Draw a "sphere" gesture at center front (smooth 3D loop)
-            # sphere_gesture(hl,
-            #                cx=0.0, cy=0.0,
-            #                z_center=H_STD,
-            #                radius=0.35,
-            #                total_time=8.0,
-            #                segments=64,
-            #                face_center=FACE_CENTER,
-            #                world_yaw_offset_deg=YAW_OFF_DEG)
-
-            # start_angle_deg = 90.0
-            # circle(hl,
-            #        cx=0.0, cy=0.0, z=H_STD,
-            #        radius=CIRCLE_R, total_time=8.0,
-            #        segments=30, face_center=FACE_CENTER,
-            #        world_yaw_offset_deg=YAW_OFF_DEG,
-            #        start_angle_deg=start_angle_deg)
-            
-            
-            # 2:51–3:30 Wave path while circling (smooth sine height, slows near end)
-            # wave_orbit(hl,
-            #            cx=0.0, cy=0.0,
-            #            z_min=H_STD, z_max=H_MAX,
-            #            radius=CIRCLE_R,
-            #            total_time=39.0,
-            #            cycles=3.0,          # vertical wave cycles
-            #            segments=156,        # smooth
-            #            face_center=FACE_CENTER,
-            #            world_yaw_offset_deg=YAW_OFF_DEG)
-            
             # 2:51–3:30 Wave path while circling (using diagonal_orbit)
             diagonal_orbit(hl,
                         cx=0.0, cy=0.0,
@@ -450,40 +365,6 @@ def main():
             # Update current height after the full sequence
             current_height = H_LOW # The last pass (i=9, "down") ends at z_low
             
-            # # Calculate positions around the performer (orbit at radius)
-            # num_diag_passes = 10
-            # orbit_radius = CIRCLE_R
-            # angle_step = (2.0 * math.pi) / num_diag_passes
-            
-            # for i in range(num_diag_passes):
-            #     mode = "up" if i % 2 == 0 else "down"
-                
-            #     # Calculate horizontal positions (moving around performer)
-            #     angle_start = i * angle_step
-            #     angle_end = (i + 1) * angle_step
-                
-            #     # Starting position for this diagonal
-            #     x_start = orbit_radius * math.cos(angle_start)
-            #     y_start = orbit_radius * math.sin(angle_start)
-                
-            #     # Ending position (1.5m horizontal distance away)
-            #     x_end = orbit_radius * math.cos(angle_end)
-            #     y_end = orbit_radius * math.sin(angle_end)
-                
-            #     # Height changes: alternating up (+1.2m) and down (-1.2m)
-            #     if mode == "up":
-            #         z_start = H_LOW
-            #         z_end = H_LOW + DIAG_VERTICAL  # +1.2m height
-            #         current_height = z_end
-            #     else:
-            #         z_start = H_LOW + DIAG_VERTICAL
-            #         z_end = H_LOW  # -1.2m height
-            #         current_height = z_end
-                
-            #     # Execute diagonal movement (3 seconds per pass)
-            #     hl_go_to_compat(hl, x_end, y_end, z_end, duration_s=3.9, relative=False)
-            #     safe_sleep(3.9 + SLACK)
-
             # Ensure we finish at center front
             goto(hl, POINTS["CENTER"], H_STD, 0.8)
 
