@@ -52,7 +52,7 @@ CIRCLE_R     = 1.2 # orbit radius around performer (m)
 DIAG_HORIZONTAL = 1.5  # horizontal distance per diagonal pass (m)
 DIAG_VERTICAL   = 0.4  # height change per diagonal pass (m) - reduced from 0.7 for gentler slope
 
-ASCENT_VEL   = 0.7
+ASCENT_VEL   = 0.25 # take off much slower; approx. 0.25 meter per second; will take around 5 seconds to reach 1.3 meters (std.height)
 DESCENT_VEL  = 0.125
 
 FACE_CENTER  = True
