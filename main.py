@@ -309,29 +309,30 @@ def main():
             # Update current height after the full sequence
             current_height = H_LOW # The last pass (i=9, "down") ends at z_low
 
-            start_angle_deg = 90.0
-            circle(hl,
-                   cx=0.0, cy=0.0, z=H_STD,
-                   radius=CIRCLE_R, total_time=9.67,
-                   segments=30, face_center=FACE_CENTER,
-                   world_yaw_offset_deg=YAW_OFF_DEG,
-                   start_angle_deg=start_angle_deg)
+            #### New choreo; replacing the 3 circles.
+            # 1. Up to 2m (High Center) - 4.0s
+            goto(hl, POINTS["CENTER"], 2.0, 4.0)
+            current_height = 2.0
             
-            # Second circle (9.67 seconds)
-            circle(hl,
-                   cx=0.0, cy=0.0, z=H_STD,
-                   radius=CIRCLE_R, total_time=9.67,
-                   segments=30, face_center=FACE_CENTER,
-                   world_yaw_offset_deg=YAW_OFF_DEG,
-                   start_angle_deg=start_angle_deg)
+            # 2. Back to center at 1.5m - 3.0s
+            goto(hl, POINTS["CENTER"], 1.5, 3.0)
             
-            # Third circle (9.67 seconds)
-            circle(hl,
-                   cx=0.0, cy=0.0, z=H_STD,
-                   radius=CIRCLE_R, total_time=9.67,
-                   segments=30, face_center=FACE_CENTER,
-                   world_yaw_offset_deg=YAW_OFF_DEG,
-                   start_angle_deg=start_angle_deg)
+            # 3. Right - 4.0s
+            goto(hl, POINTS["RIGHT"], 1.5, 4.0)
+            
+            # 4. Left - 6.0s (Crossing full width)
+            goto(hl, POINTS["LEFT"], 1.5, 6.0)
+            
+            # 5. Center - 4.0s
+            goto(hl, POINTS["CENTER"], 1.5, 4.0)
+            
+            # 6. Backward (Retreat) - 4.0s
+            goto(hl, POINTS["RETREAT"], 1.5, 4.0)
+            
+            # 7. Front (Center) - 4.0s
+            goto(hl, POINTS["CENTER"], 1.5, 4.0)
+            
+            current_height = 1.5
             
             # End at center front
             goto(hl, POINTS["CENTER"], H_STD, 0.8)
