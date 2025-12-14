@@ -83,7 +83,7 @@ def pose_callback(timestamp, data, logconf):
             "x": data['stateEstimate.x'],
             "y": data['stateEstimate.y'],
             "z": data['stateEstimate.z'],
-            "yaw_deg": data['stabilizer.yaw'],  # or 'stateEstimate.yaw' if available
+            "yaw_deg": data['stabilizer.yaw'],  
             "ts": time.time()
         }
 
@@ -108,7 +108,7 @@ def udp_streaming_thread():
 
 def setup_pose_logging(cf):
     """Set up Crazyflie logging for position and orientation."""
-    log_conf = LogConfig(name='Pose', period_in_ms=33)  # ~30Hz
+    log_conf = LogConfig(name='Pose', period_in_ms=33) 
     
     # Add pose variables to log
     log_conf.add_variable('stateEstimate.x', 'float')

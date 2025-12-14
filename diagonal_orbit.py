@@ -1,5 +1,6 @@
 import time, math
 from cfutils import hl_go_to_compat, face_center_yaw_deg
+from safe_sleep import safe_sleep
 
 def diagonal_orbit(hl, *,
                    cx=0.0, cy=0.0,
@@ -65,4 +66,5 @@ def diagonal_orbit(hl, *,
                         relative=False)
         
         # Sleep for the remaining duration
-        time.sleep(duration_s + sleep_s)
+        safe_sleep(duration_s + sleep_s)
+        
