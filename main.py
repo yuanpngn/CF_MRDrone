@@ -65,6 +65,7 @@ POINTS = {
     "RIGHT":   (+SIDE_DIST, CENTER_FRONT_Y),             # 1m right of center front
     "LEFT":    (-SIDE_DIST, CENTER_FRONT_Y),             # 1m left of center front
     "RETREAT": (0.0, 1.8),     # 1.5m back from center front, it ung 1.8
+    "FORWARD": (0.0, 0.75)
 }
 
 SLACK = 0.05  # timing slack after each commanded segment
@@ -240,24 +241,30 @@ def main():
             # Main Dance (0:16–3:30)
             # =========================
 
-            # 0:16–0:20 Fly right (~1 m)
-            goto(hl, POINTS["RIGHT"], H_STD, 4.0)
+            # 0:16–0:21 Fly right (~1 m)
+            goto(hl, POINTS["RIGHT"], H_STD, 3.5)
             print("[DEBUG] right command issued.")
-            
-            # 0:21–0:23 Hover
-            hover(hl, 2.0)
+            hover(h1, 1.5)
 
-            # 0:23–0:29 Back to center
-            goto(hl, POINTS["CENTER"], H_STD, 6.0)
+            # 0:21–0:26 Back to center
+            goto(hl, POINTS["CENTER"], H_STD, 3.5)
+            hover(h1, 1.5)
 
-            # 0:30–0:36 Fly left (~1 m)
-            goto(hl, POINTS["LEFT"], H_STD, 6.0)
+            # 0:26–0:31 Fly left (~1 m)
+            goto(hl, POINTS["LEFT"], H_STD, 3.5)
+            hover(h1, 1.5)
 
-            # 0:37–0:40 Hover
-            hover(hl, 3.0)
+            # 0:31–0:36 Back to center
+            goto(hl, POINTS["CENTER"], H_STD, 3.5)
+            hover(h1, 1.5)
 
-            # 0:40–0:46 Back to center
-            goto(hl, POINTS["CENTER"], H_STD, 6.0)
+            # 0:36–0:41 Forward
+            goto(hl, POINTS["FORWARD"], H_STD, 3.5)
+            hover(h1, 1.5)
+
+            # 0:41–0:46 Back to center
+            goto(hl, POINTS["CENTER"], H_STD, 3.5)
+            hover(h1, 1.5)
 
             # 0:46–1:15 Circle around performer (flat at 1.5m height), end at center front
             # Circle center = performer position (0, 0), radius = 0.8m
@@ -309,47 +316,45 @@ def main():
             # Update current height after the full sequence
             current_height = H_LOW # The last pass (i=9, "down") ends at z_low
 
-            start_angle_deg = 90.0
-            circle(hl,
-                   cx=0.0, cy=0.0, z=H_STD,
-                   radius=CIRCLE_R, total_time=9.67,
-                   segments=30, face_center=FACE_CENTER,
-                   world_yaw_offset_deg=YAW_OFF_DEG,
-                   start_angle_deg=start_angle_deg)
+            #### New choreo; replacing the 3 circles.
+            # 1. Up to 2m (High Center) - 4.0s
+            goto(hl, POINTS["CENTER"], 2.0, 4.0)
+            current_height = 2.0
             
-            # Second circle (9.67 seconds)
-            circle(hl,
-                   cx=0.0, cy=0.0, z=H_STD,
-                   radius=CIRCLE_R, total_time=9.67,
-                   segments=30, face_center=FACE_CENTER,
-                   world_yaw_offset_deg=YAW_OFF_DEG,
-                   start_angle_deg=start_angle_deg)
+            # 2. Back to center at 1.5m - 3.0s
+            goto(hl, POINTS["CENTER"], 1.5, 3.0)
             
-            # Third circle (9.67 seconds)
-            circle(hl,
-                   cx=0.0, cy=0.0, z=H_STD,
-                   radius=CIRCLE_R, total_time=9.67,
-                   segments=30, face_center=FACE_CENTER,
-                   world_yaw_offset_deg=YAW_OFF_DEG,
-                   start_angle_deg=start_angle_deg)
+            # 3. Right - 4.0s
+            goto(hl, POINTS["RIGHT"], 1.5, 4.0)
+            
+            # 4. Left - 6.0s (Crossing full width)
+            goto(hl, POINTS["LEFT"], 1.5, 6.0)
+            
+            # 5. Center - 4.0s
+            goto(hl, POINTS["CENTER"], 1.5, 4.0)
+            
+            # 6. Backward (Retreat) - 4.0s
+            goto(hl, POINTS["RETREAT"], 1.5, 4.0)
+            
+            # 7. Front (Center) - 4.0s
+            goto(hl, POINTS["CENTER"], 1.5, 4.0)
+            
+            current_height = 1.5
             
             # End at center front
             goto(hl, POINTS["CENTER"], H_STD, 0.8)
             current_height = H_STD
 
-            # 2:21–2:43 Diagonal Retreat/Approach blocks with hovers
-            # 2:21–2:25 Retreat
-            goto(hl, POINTS["RETREAT"], H_STD, 4.0)
-            # 2:25–2:28 Hover
-            hover(hl, 3.0)
-            # 2:28–2:32 Approach
+            # 2:21–2:26 Retreat
+            goto(hl, POINTS["RETREAT"], H_STD, 5.0)
+            # 2:26–2:32 Approach and hover
+            goto(hl, POINTS["CENTER"], H_STD, 5.0)
+            hover(hl, 2.0)
+            # 2:32–2:37 Retreat
+            goto(hl, POINTS["FORWARD"], H_STD, 5.0)
+            # 2:37–2:43 Approach
             goto(hl, POINTS["CENTER"], H_STD, 4.0)
-            # 2:32–2:36 Retreat
-            goto(hl, POINTS["RETREAT"], H_STD, 4.0)
-            # 2:36–2:39 Hover
-            hover(hl, 3.0)
-            # 2:39–2:43 Approach
-            goto(hl, POINTS["CENTER"], H_STD, 4.0)
+            hover(hl, 2.0)
 
             # 2:51–3:30 Wave path while circling (using diagonal_orbit)
             diagonal_orbit(hl,
