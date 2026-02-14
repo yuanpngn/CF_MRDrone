@@ -46,7 +46,7 @@ CENTER_FRONT_Y = 1.0
 
 RETREAT_DIST = 1.5  # additional distance back from center front (m)
 SIDE_DIST    = 1.0  # left/right from center line (m)
-CIRCLE_R     = 1.2 # orbit radius around performer (m)
+CIRCLE_R     = 0.75 # orbit radius around performer (m)
 
 # Diagonal movement parameters (1:26-1:50)
 DIAG_HORIZONTAL = 1.5  # horizontal distance per diagonal pass (m)
