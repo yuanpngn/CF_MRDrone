@@ -244,27 +244,27 @@ def main():
             # 0:16–0:21 Fly right (~1 m)
             goto(hl, POINTS["RIGHT"], H_STD, 3.5)
             print("[DEBUG] right command issued.")
-            hover(h1, 1.5)
+            hover(hl, 1.5)
 
             # 0:21–0:26 Back to center
             goto(hl, POINTS["CENTER"], H_STD, 3.5)
-            hover(h1, 1.5)
+            hover(hl, 1.5)
 
             # 0:26–0:31 Fly left (~1 m)
             goto(hl, POINTS["LEFT"], H_STD, 3.5)
-            hover(h1, 1.5)
+            hover(hl, 1.5)
 
             # 0:31–0:36 Back to center
             goto(hl, POINTS["CENTER"], H_STD, 3.5)
-            hover(h1, 1.5)
+            hover(hl, 1.5)
 
             # 0:36–0:41 Forward
             goto(hl, POINTS["FORWARD"], H_STD, 3.5)
-            hover(h1, 1.5)
+            hover(hl, 1.5)
 
             # 0:41–0:46 Back to center
             goto(hl, POINTS["CENTER"], H_STD, 3.5)
-            hover(h1, 1.5)
+            hover(hl, 1.5)
 
             # 0:46–1:15 Circle around performer (flat at 1.5m height), end at center front
             # Circle center = performer position (0, 0), radius = 0.8m
